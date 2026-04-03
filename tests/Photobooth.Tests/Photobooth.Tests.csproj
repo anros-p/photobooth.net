@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Drivers\Photobooth.Drivers.csproj" />
     <ProjectReference Include="..\..\src\Imaging\Photobooth.Imaging.csproj" />
+    <ProjectReference Include="..\..\src\Printing\Photobooth.Printing.csproj" />
   </ItemGroup>
 
 </Project>
