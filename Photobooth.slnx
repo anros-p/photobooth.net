@@ -15,4 +15,7 @@
   <Folder Name="/src/Remote/">
     <Project Path="src/Remote/Photobooth.Remote.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Photobooth.Tests/Photobooth.Tests.csproj" />
+  </Folder>
 </Solution>
