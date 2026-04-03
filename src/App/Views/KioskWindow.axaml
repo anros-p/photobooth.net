@@ -1,0 +1,57 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Photobooth.App.ViewModels"
+        xmlns:kvm="using:Photobooth.App.ViewModels.Kiosk"
+        xmlns:kv="using:Photobooth.App.Views.Kiosk"
+        x:Class="Photobooth.App.Views.KioskWindow"
+        x:DataType="vm:KioskViewModel"
+        WindowState="FullScreen"
+        SystemDecorations="None"
+        Background="Black"
+        Title="Photobooth">
+
+  <Window.DataTemplates>
+    <DataTemplate DataType="kvm:IdleViewModel">
+      <kv:IdleView />
+    </DataTemplate>
+    <DataTemplate DataType="kvm:PreviewViewModel">
+      <kv:PreviewView />
+    </DataTemplate>
+    <DataTemplate DataType="kvm:CountdownViewModel">
+      <kv:CountdownView />
+    </DataTemplate>
+    <DataTemplate DataType="kvm:CapturingViewModel">
+      <kv:CapturingView />
+    </DataTemplate>
+    <DataTemplate DataType="kvm:ReviewViewModel">
+      <kv:ReviewView />
+    </DataTemplate>
+    <DataTemplate DataType="kvm:SharingViewModel">
+      <kv:SharingView />
+    </DataTemplate>
+  </Window.DataTemplates>
+
+  <Grid>
+
+    <!-- Current screen -->
+    <ContentControl Content="{Binding CurrentScreen}" />
+
+    <!-- Language selector overlay -->
+    <kv:LanguageSelectorView
+        DataContext="{Binding LanguageSelector}"
+        IsVisible="{Binding $parent[Window].((vm:KioskViewModel)DataContext).IsLanguageSelectorOpen}" />
+
+    <!-- Language toggle button (always visible) -->
+    <Button Content="🌐"
+            Command="{Binding ToggleLanguageSelectorCommand}"
+            FontSize="28"
+            Background="Transparent"
+            BorderThickness="0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Margin="0,16,24,0"
+            Opacity="0.7" />
+
+  </Grid>
+
+</Window>
