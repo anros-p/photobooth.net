@@ -6,6 +6,9 @@ public record ShareJob
     public Guid SessionId { get; init; }
     public ShareChannel Channel { get; init; }
 
+    /// <summary>Absolute path to the composed image file to share.</summary>
+    public string FilePath { get; init; } = string.Empty;
+
     /// <summary>Recipient address: email address, phone number, or empty for QR/microsite.</summary>
     public string Recipient { get; init; } = string.Empty;
 
