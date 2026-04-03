@@ -1,0 +1,18 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/App/">
+    <Project Path="src/App/Photobooth.App.csproj" />
+  </Folder>
+  <Folder Name="/src/Drivers/">
+    <Project Path="src/Drivers/Photobooth.Drivers.csproj" />
+  </Folder>
+  <Folder Name="/src/Plugins/">
+    <Project Path="src/Plugins/Photobooth.Plugins.csproj" />
+  </Folder>
+  <Folder Name="/src/Printing/">
+    <Project Path="src/Printing/Photobooth.Printing.csproj" />
+  </Folder>
+  <Folder Name="/src/Remote/">
+    <Project Path="src/Remote/Photobooth.Remote.csproj" />
+  </Folder>
+</Solution>
