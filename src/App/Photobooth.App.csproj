@@ -24,5 +24,6 @@
     <ProjectReference Include="..\Printing\Photobooth.Printing.csproj" />
     <ProjectReference Include="..\Plugins\Photobooth.Plugins.csproj" />
     <ProjectReference Include="..\Remote\Photobooth.Remote.csproj" />
+    <ProjectReference Include="..\Imaging\Photobooth.Imaging.csproj" />
   </ItemGroup>
 </Project>

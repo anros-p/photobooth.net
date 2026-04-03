@@ -6,6 +6,9 @@
   <Folder Name="/src/Drivers/">
     <Project Path="src/Drivers/Photobooth.Drivers.csproj" />
   </Folder>
+  <Folder Name="/src/Imaging/">
+    <Project Path="src/Imaging/Photobooth.Imaging.csproj" />
+  </Folder>
   <Folder Name="/src/Plugins/">
     <Project Path="src/Plugins/Photobooth.Plugins.csproj" />
   </Folder>
