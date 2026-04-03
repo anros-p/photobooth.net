@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Photobooth.App.ViewModels.Kiosk"
+             x:Class="Photobooth.App.Views.Kiosk.CountdownView"
+             x:DataType="vm:CountdownViewModel"
+             Background="Black">
+
+  <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="24">
+
+    <TextBlock Text="{Binding SecondsRemaining}"
+               FontSize="200"
+               FontWeight="Bold"
+               Foreground="White"
+               HorizontalAlignment="Center" />
+
+    <TextBlock Text="{Binding ProgressLabel}"
+               FontSize="28"
+               Foreground="Gray"
+               HorizontalAlignment="Center"
+               IsVisible="{Binding ProgressLabel, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+
+  </StackPanel>
+
+</UserControl>

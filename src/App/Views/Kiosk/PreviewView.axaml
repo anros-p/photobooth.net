@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Photobooth.App.ViewModels.Kiosk"
+             x:Class="Photobooth.App.Views.Kiosk.PreviewView"
+             x:DataType="vm:PreviewViewModel"
+             Background="Black">
+
+  <Grid>
+    <!-- Live view frame -->
+    <Image Source="{Binding CurrentFrame}"
+           Stretch="UniformToFill" />
+
+    <!-- Tap overlay -->
+    <Button Command="{Binding CaptureCommand}"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Background="Transparent"
+            BorderThickness="0"
+            Opacity="0.01" />
+
+    <!-- Tap to capture label -->
+    <TextBlock Text="{Binding TapToStartLabel}"
+               FontSize="32"
+               Foreground="White"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Bottom"
+               Margin="0,0,0,48"
+               Opacity="0.85" />
+  </Grid>
+
+</UserControl>
