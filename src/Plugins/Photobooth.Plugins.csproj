@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Drivers\Photobooth.Drivers.csproj" />
+    <ProjectReference Include="..\Printing\Photobooth.Printing.csproj" />
+  </ItemGroup>
+
+</Project>
