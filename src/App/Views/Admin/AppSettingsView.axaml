@@ -1,0 +1,60 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Photobooth.App.ViewModels.Admin"
+             x:Class="Photobooth.App.Views.Admin.AppSettingsView"
+             x:DataType="vm:AppSettingsViewModel">
+
+  <ScrollViewer>
+    <StackPanel Spacing="16" Margin="16" MaxWidth="600">
+
+      <TextBlock Text="Application Settings" FontSize="20" FontWeight="SemiBold" />
+
+      <!-- General -->
+      <TextBlock Text="Data Directory" />
+      <TextBox Text="{Binding DataDirectory}" />
+
+      <TextBlock Text="Camera Driver" />
+      <ComboBox ItemsSource="{Binding CameraDriverOptions}"
+                SelectedItem="{Binding CameraDriverOverride}" />
+
+      <Separator />
+
+      <!-- SMTP -->
+      <TextBlock Text="Email (SMTP)" FontWeight="SemiBold" />
+      <TextBlock Text="SMTP Host" />
+      <TextBox Text="{Binding SmtpHost}" />
+      <Grid ColumnDefinitions="*,100">
+        <TextBox Grid.Column="0" Text="{Binding SmtpUsername}" Watermark="Username" Margin="0,0,8,0" />
+        <NumericUpDown Grid.Column="1" Value="{Binding SmtpPort}" Minimum="1" Maximum="65535" />
+      </Grid>
+      <TextBox Text="{Binding SmtpPassword}" PasswordChar="•" Watermark="Password" />
+      <TextBox Text="{Binding SmtpFromAddress}" Watermark="From address" />
+
+      <Separator />
+
+      <!-- SMS -->
+      <TextBlock Text="SMS Gateway" FontWeight="SemiBold" />
+      <TextBox Text="{Binding SmsGatewayUrl}" Watermark="Gateway URL" />
+      <TextBox Text="{Binding SmsAccountSid}" Watermark="Account SID" />
+      <TextBox Text="{Binding SmsAuthToken}" PasswordChar="•" Watermark="Auth token" />
+      <TextBox Text="{Binding SmsFromNumber}" Watermark="From number" />
+
+      <Separator />
+
+      <!-- Hosting -->
+      <TextBlock Text="Hosting / QR / Microsite" FontWeight="SemiBold" />
+      <TextBox Text="{Binding HostingEndpoint}" Watermark="Upload endpoint URL" />
+      <TextBox Text="{Binding HostingApiKey}" PasswordChar="•" Watermark="API key" />
+
+      <Separator />
+
+      <StackPanel Orientation="Horizontal" Spacing="12">
+        <Button Content="Save Settings" Command="{Binding SaveCommand}" />
+        <Button Content="Switch to Kiosk" Command="{Binding SwitchToKioskCommand}" />
+        <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center" Foreground="Green" />
+      </StackPanel>
+
+    </StackPanel>
+  </ScrollViewer>
+
+</UserControl>

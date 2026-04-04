@@ -1,0 +1,89 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Photobooth.App.ViewModels.Admin"
+             x:Class="Photobooth.App.Views.Admin.LayoutEditorView"
+             x:DataType="vm:LayoutEditorViewModel">
+
+  <Grid ColumnDefinitions="220,*">
+
+    <!-- Left panel: slot list + controls -->
+    <Grid Grid.Column="0" RowDefinitions="Auto,*,Auto" Margin="0,0,8,0">
+
+      <StackPanel Grid.Row="0" Spacing="6" Margin="0,0,0,8">
+        <Button Content="Add Slot"       Command="{Binding AddSlotCommand}"       HorizontalAlignment="Stretch" />
+        <Button Content="Remove Selected" Command="{Binding RemoveSelectedCommand}" HorizontalAlignment="Stretch"
+                IsEnabled="{Binding SelectedSlot, Converter={x:Static ObjectConverters.IsNotNull}}" />
+      </StackPanel>
+
+      <!-- Slot list -->
+      <ListBox Grid.Row="1" ItemsSource="{Binding Slots}" SelectedItem="{Binding SelectedSlot}">
+        <ListBox.ItemTemplate>
+          <DataTemplate DataType="vm:SlotEditorItem">
+            <TextBlock Text="{Binding X, StringFormat='({0:F0},', TargetNullValue='Slot'}" />
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+
+      <!-- Selected slot properties -->
+      <StackPanel Grid.Row="2" Spacing="4" Margin="0,8,0,0"
+                  IsVisible="{Binding SelectedSlot, Converter={x:Static ObjectConverters.IsNotNull}}">
+        <TextBlock Text="X" FontSize="11" />
+        <NumericUpDown Value="{Binding SelectedSlot.X}" Minimum="0" />
+        <TextBlock Text="Y" FontSize="11" />
+        <NumericUpDown Value="{Binding SelectedSlot.Y}" Minimum="0" />
+        <TextBlock Text="Width" FontSize="11" />
+        <NumericUpDown Value="{Binding SelectedSlot.Width}" Minimum="50" />
+        <TextBlock Text="Height" FontSize="11" />
+        <NumericUpDown Value="{Binding SelectedSlot.Height}" Minimum="50" />
+        <TextBlock Text="Rotation (°)" FontSize="11" />
+        <NumericUpDown Value="{Binding SelectedSlot.Rotation}" Minimum="-180" Maximum="180" />
+      </StackPanel>
+
+    </Grid>
+
+    <!-- Canvas editor -->
+    <Border Grid.Column="1" Background="#1A1A1A" ClipToBounds="True">
+      <Canvas x:Name="EditorCanvas"
+              Width="{Binding CanvasWidth}"
+              Height="{Binding CanvasHeight}"
+              Background="#2A2A2A"
+              HorizontalAlignment="Left"
+              VerticalAlignment="Top">
+
+        <!-- Background image -->
+        <Image Canvas.Left="0" Canvas.Top="0"
+               Source="{Binding BackgroundImagePath}"
+               Width="{Binding CanvasWidth}"
+               Height="{Binding CanvasHeight}"
+               Stretch="Fill"
+               IsVisible="{Binding BackgroundImagePath, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+
+        <!-- Photo slots rendered as draggable rectangles -->
+        <ItemsControl ItemsSource="{Binding Slots}">
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <Canvas />
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+          <ItemsControl.ItemTemplate>
+            <DataTemplate DataType="vm:SlotEditorItem">
+              <Border Width="{Binding Width}"
+                      Height="{Binding Height}"
+                      Background="#4400AAFF"
+                      BorderBrush="White"
+                      BorderThickness="2"
+                      RenderTransformOrigin="0.5,0.5">
+                <Border.RenderTransform>
+                  <RotateTransform Angle="{Binding Rotation}" />
+                </Border.RenderTransform>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+      </Canvas>
+    </Border>
+
+  </Grid>
+
+</UserControl>

@@ -1,0 +1,59 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Photobooth.App.ViewModels"
+        xmlns:av="using:Photobooth.App.Views.Admin"
+        x:Class="Photobooth.App.Views.AdminWindow"
+        x:DataType="vm:AdminViewModel"
+        Width="1200" Height="800"
+        MinWidth="900" MinHeight="600"
+        Title="Photobooth — Admin">
+
+  <Grid ColumnDefinitions="180,*">
+
+    <!-- Left nav -->
+    <Border Grid.Column="0" Background="#1A1A1A" Padding="8">
+      <StackPanel Spacing="4" Margin="0,16,0,0">
+        <Button Content="Events"
+                Command="{Binding NavigateEventsCommand}"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Left" />
+        <Button Content="Sessions"
+                Command="{Binding NavigateSessionsCommand}"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Left" />
+        <Button Content="Hardware"
+                Command="{Binding NavigateHardwareCommand}"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Left" />
+        <Button Content="Settings"
+                Command="{Binding NavigateSettingsCommand}"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Left" />
+      </StackPanel>
+    </Border>
+
+    <!-- Main content area — each view visible per section, DataContext from root VM -->
+    <Grid Grid.Column="1" Margin="16">
+
+      <Grid IsVisible="{Binding IsEventsSection}" RowDefinitions="*,8,*">
+        <av:EventListView   Grid.Row="0" DataContext="{Binding EventList}" />
+        <av:EventEditorView Grid.Row="2" DataContext="{Binding EventEditor}" />
+      </Grid>
+
+      <av:SessionManagerView
+          DataContext="{Binding Sessions}"
+          IsVisible="{Binding $parent[Window].((vm:AdminViewModel)DataContext).IsSessionsSection}" />
+
+      <av:HardwareStatusView
+          DataContext="{Binding Hardware}"
+          IsVisible="{Binding $parent[Window].((vm:AdminViewModel)DataContext).IsHardwareSection}" />
+
+      <av:AppSettingsView
+          DataContext="{Binding AppSettings}"
+          IsVisible="{Binding $parent[Window].((vm:AdminViewModel)DataContext).IsSettingsSection}" />
+
+    </Grid>
+
+  </Grid>
+
+</Window>
