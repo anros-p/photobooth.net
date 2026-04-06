@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Photobooth.App.ViewModels.Admin"
+             x:Class="Photobooth.App.Views.Admin.OverlayManagerView"
+             x:DataType="vm:OverlayManagerViewModel">
+
+  <Grid RowDefinitions="Auto,*">
+
+    <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8" Margin="0,0,0,8">
+      <TextBox Text="{Binding NewCategory}" Watermark="Category" Width="160" />
+      <Button Content="Import PNG…" Command="{Binding ImportCommand}" />
+      <Button Content="Delete"
+              Command="{Binding DeleteCommand}"
+              CommandParameter="{Binding SelectedAsset}"
+              IsEnabled="{Binding SelectedAsset, Converter={x:Static ObjectConverters.IsNotNull}}" />
+    </StackPanel>
+
+    <ListBox Grid.Row="1" ItemsSource="{Binding Assets}" SelectedItem="{Binding SelectedAsset}">
+      <ListBox.ItemTemplate>
+        <DataTemplate DataType="vm:OverlayAssetItem">
+          <Grid ColumnDefinitions="64,*">
+            <Image Grid.Column="0" Source="{Binding FilePath}" Width="60" Height="60" Stretch="Uniform" />
+            <StackPanel Grid.Column="1" Margin="8,0,0,0" VerticalAlignment="Center">
+              <TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
+              <TextBlock Text="{Binding Category}" FontSize="11" Foreground="Gray" />
+            </StackPanel>
+          </Grid>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+  </Grid>
+
+</UserControl>

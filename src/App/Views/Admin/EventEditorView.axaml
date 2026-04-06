@@ -1,0 +1,81 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Photobooth.App.ViewModels.Admin"
+             xmlns:av="using:Photobooth.App.Views.Admin"
+             x:Class="Photobooth.App.Views.Admin.EventEditorView"
+             x:DataType="vm:EventEditorViewModel">
+
+  <Grid RowDefinitions="*,Auto">
+
+    <TabControl Grid.Row="0">
+
+      <!-- General -->
+      <TabItem Header="General">
+        <StackPanel Spacing="12" Margin="16">
+          <TextBlock Text="Event Name" />
+          <TextBox Text="{Binding Name}" />
+          <TextBlock Text="Default Language" />
+          <TextBox Text="{Binding DefaultLanguage}" />
+          <TextBlock Text="Screensaver Media Path" />
+          <TextBox Text="{Binding ScreensaverMediaPath}" />
+          <TextBlock Text="Screensaver Idle (seconds)" />
+          <NumericUpDown Value="{Binding ScreensaverIdleSeconds}" Minimum="10" Maximum="3600" />
+        </StackPanel>
+      </TabItem>
+
+      <!-- Capture -->
+      <TabItem Header="Capture">
+        <StackPanel Spacing="12" Margin="16">
+          <TextBlock Text="Capture Mode" />
+          <ComboBox ItemsSource="{Binding CaptureModes}"
+                    SelectedItem="{Binding CaptureMode}" />
+          <TextBlock Text="Countdown (seconds)" />
+          <NumericUpDown Value="{Binding CountdownSeconds}" Minimum="1" Maximum="30" />
+          <TextBlock Text="GIF Frame Count" />
+          <NumericUpDown Value="{Binding GifFrameCount}" Minimum="2" Maximum="60" />
+          <TextBlock Text="GIF Frame Rate (fps)" />
+          <NumericUpDown Value="{Binding GifFrameRate}" Minimum="1" Maximum="30" />
+        </StackPanel>
+      </TabItem>
+
+      <!-- Layout -->
+      <TabItem Header="Layout">
+        <av:LayoutEditorView DataContext="{Binding LayoutEditor}" />
+      </TabItem>
+
+      <!-- Sharing -->
+      <TabItem Header="Sharing">
+        <StackPanel Spacing="12" Margin="16">
+          <CheckBox Content="Email"      IsChecked="{Binding ShareEmail}" />
+          <CheckBox Content="SMS"        IsChecked="{Binding ShareSms}" />
+          <CheckBox Content="QR Code"    IsChecked="{Binding ShareQr}" />
+          <CheckBox Content="Microsite"  IsChecked="{Binding ShareMicrosite}" />
+          <Separator />
+          <CheckBox Content="Gallery Access" IsChecked="{Binding GalleryAccessEnabled}" />
+          <TextBox Text="{Binding GalleryAccessCode}"
+                   Watermark="Gallery access code"
+                   IsEnabled="{Binding GalleryAccessEnabled}" />
+        </StackPanel>
+      </TabItem>
+
+      <!-- Printing -->
+      <TabItem Header="Printing">
+        <StackPanel Spacing="12" Margin="16">
+          <CheckBox Content="Enable Printing" IsChecked="{Binding PrintingEnabled}" />
+          <TextBlock Text="Max Prints per Session (0 = unlimited)" />
+          <NumericUpDown Value="{Binding MaxPrints}" Minimum="0" Maximum="100"
+                         IsEnabled="{Binding PrintingEnabled}" />
+        </StackPanel>
+      </TabItem>
+
+    </TabControl>
+
+    <!-- Footer -->
+    <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="8" Margin="0,8,0,0">
+      <Button Content="Save" Command="{Binding SaveCommand}" />
+      <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center" Foreground="Green" />
+    </StackPanel>
+
+  </Grid>
+
+</UserControl>

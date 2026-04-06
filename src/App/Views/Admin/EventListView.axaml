@@ -1,0 +1,46 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Photobooth.App.ViewModels.Admin"
+             x:Class="Photobooth.App.Views.Admin.EventListView"
+             x:DataType="vm:EventListViewModel">
+
+  <Grid RowDefinitions="Auto,*,Auto">
+
+    <!-- Toolbar -->
+    <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8" Margin="0,0,0,8">
+      <Button Content="New Event"    Command="{Binding CreateCommand}" />
+      <Button Content="Refresh"      Command="{Binding RefreshCommand}" />
+      <Button Content="Duplicate"    Command="{Binding DuplicateCommand}"
+              CommandParameter="{Binding SelectedEvent}"
+              IsEnabled="{Binding SelectedEvent, Converter={x:Static ObjectConverters.IsNotNull}}" />
+      <Button Content="Delete"       Command="{Binding DeleteCommand}"
+              CommandParameter="{Binding SelectedEvent}"
+              IsEnabled="{Binding SelectedEvent, Converter={x:Static ObjectConverters.IsNotNull}}" />
+      <Button Content="Edit"         Command="{Binding EditCommand}"
+              CommandParameter="{Binding SelectedEvent}"
+              IsEnabled="{Binding SelectedEvent, Converter={x:Static ObjectConverters.IsNotNull}}" />
+      <Button Content="Set Active"   Command="{Binding SetActiveCommand}"
+              CommandParameter="{Binding SelectedEvent}"
+              IsEnabled="{Binding SelectedEvent, Converter={x:Static ObjectConverters.IsNotNull}}" />
+    </StackPanel>
+
+    <!-- Event list -->
+    <ListBox Grid.Row="1"
+             ItemsSource="{Binding Events}"
+             SelectedItem="{Binding SelectedEvent}">
+      <ListBox.ItemTemplate>
+        <DataTemplate DataType="vm:EventListItem">
+          <Grid ColumnDefinitions="*,Auto,Auto">
+            <StackPanel Grid.Column="0">
+              <TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
+              <TextBlock Text="{Binding CreatedAtDisplay}" FontSize="11" Foreground="Gray" />
+            </StackPanel>
+            <TextBlock Grid.Column="1" Text="{Binding CaptureMode}" Margin="8,0" VerticalAlignment="Center" />
+          </Grid>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+  </Grid>
+
+</UserControl>

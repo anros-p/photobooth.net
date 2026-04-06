@@ -1,0 +1,46 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Photobooth.App.ViewModels.Admin"
+             x:Class="Photobooth.App.Views.Admin.SessionManagerView"
+             x:DataType="vm:SessionManagerViewModel">
+
+  <Grid RowDefinitions="Auto,*,Auto">
+
+    <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8" Margin="0,0,0,8">
+      <Button Content="Reprint"
+              Command="{Binding ReprintCommand}"
+              CommandParameter="{Binding SelectedSession}"
+              IsEnabled="{Binding SelectedSession, Converter={x:Static ObjectConverters.IsNotNull}}" />
+      <Button Content="Delete"
+              Command="{Binding DeleteCommand}"
+              CommandParameter="{Binding SelectedSession}"
+              IsEnabled="{Binding SelectedSession, Converter={x:Static ObjectConverters.IsNotNull}}" />
+      <Button Content="Export ZIP…" Command="{Binding ExportZipCommand}" />
+    </StackPanel>
+
+    <ListBox Grid.Row="1" ItemsSource="{Binding Sessions}" SelectedItem="{Binding SelectedSession}">
+      <ListBox.ItemTemplate>
+        <DataTemplate DataType="vm:SessionItem">
+          <Grid ColumnDefinitions="80,*">
+            <Image Grid.Column="0"
+                   Source="{Binding ComposedFilePath}"
+                   Width="72" Height="54"
+                   Stretch="UniformToFill"
+                   IsVisible="{Binding HasComposedImage}" />
+            <StackPanel Grid.Column="1" Margin="8,0,0,0" VerticalAlignment="Center">
+              <TextBlock Text="{Binding StartedAtDisplay}" FontWeight="SemiBold" />
+              <TextBlock Text="{Binding CaptureCount, StringFormat='{}{0} captures'}"
+                         FontSize="11" Foreground="Gray" />
+            </StackPanel>
+          </Grid>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <TextBlock Grid.Row="2" Text="{Binding StatusMessage}"
+               Margin="0,8,0,0" Foreground="Green"
+               IsVisible="{Binding StatusMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+
+  </Grid>
+
+</UserControl>
